@@ -4,7 +4,7 @@ This repository contains a preliminary analysis for the structural diversity of 
 
 ## setup
 
-Different packages are required for the analysis (e.g. biopython, numpy, matplotlib, pandas, mafft, mash...). These can be installed using [conda](https://docs.conda.io/en/latest/) through the provided conda environment file `conda_env.yml`:
+Different packages are required for the analysis (e.g. biopython, numpy, matplotlib, pandas, mafft, mash, scipy...). These can be installed using [conda](https://docs.conda.io/en/latest/) through the provided conda environment file `conda_env.yml`:
 
 ```bash
 conda env create -f conda_env.yml -n bla-env
@@ -34,7 +34,7 @@ We use [MASH](https://github.com/marbl/Mash) to evaluate an alignment-free dista
 
 ![mash distance](./figs/mash_dist_mat.png)
 
-The script `analysis.py` also generates a linear representation for the pangenome graph. Blocks are represented in different colors, with blocks occurring only once being represented in gray. The first four letters of the block name are reported for every block.
+The script `analysis.py` also generates a linear representation for the pangenome graph. Blocks are represented in different colors, with blocks occurring only once being represented in gray. The first four letters of the block name are reported for every block. The final block `ABVFBXCQSS` is present in all isolates. Moving left from it we find first a split in the three main clades.
 
 ![pangenome graph](./figs/pangraph.png)
 
@@ -52,6 +52,6 @@ The table below gives some summary statistics for each block: number of block oc
 | NUNRRBEPHS |     1 |          1 |  653 | False      | False |
 | ZXLWLYIAHU |     1 |          1 |  108 | False      | False |
 
-In the folder `results/alignments` we export the alignments for every block. These can be inspected with softwares such as [AliView](https://ormbunkar.se/aliview/). Below is the visualization of the alignment for block `ABVFBXCQSS`.
+In the folder `results/alignments` we export the alignments for every block. These can be inspected with software such as [AliView](https://ormbunkar.se/aliview/). Below is the visualization of the alignment for block `ABVFBXCQSS`.
 
 ![alignment](./figs/aliview_ABVFBXCQSS.png)

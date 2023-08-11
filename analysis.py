@@ -4,9 +4,9 @@ import pypangraph as pp
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib as mpl
 
 from scipy.cluster.hierarchy import linkage, dendrogram
+from scipy.spatial.distance import squareform
 from collections import defaultdict
 
 # %%
@@ -29,8 +29,8 @@ D = pd.read_csv("results/mash.csv")
 D = D.pivot(index="si", columns="sj", values="mash_dist")
 
 # perform hierarchical clustering
-
-Z = linkage(D, method="ward")
+D_sq = squareform(D)
+Z = linkage(D_sq, method="ward")
 
 # plot dendrogram
 fig, ax = plt.subplots(1, 1, figsize=(10, 10))
@@ -47,13 +47,14 @@ plt.xticks(np.arange(len(str_order_inv)), str_order_inv, rotation=90)
 plt.yticks(np.arange(len(str_order_inv)), str_order_inv)
 plt.tight_layout()
 plt.savefig("figs/mash_dist_mat.png", facecolor="white")
-plt.show()
+# plt.show()
+plt.close(fig)
 
 # %%
 
 
 # draw pangraph
-cmap = iter(mpl.cm.get_cmap("Pastel1")(np.arange(len(bdf))))
+cmap = iter(plt.get_cmap("Pastel1")(np.arange(len(bdf))))
 block_color = defaultdict(lambda: next(cmap))
 singleton_blocks = bdf.index[bdf["count"] == 1].to_list()
 for block in singleton_blocks:
@@ -95,6 +96,7 @@ ax.set_yticklabels(str_order)
 ax.set_xlabel("position (bp)")
 plt.tight_layout()
 plt.savefig("figs/pangraph.png", facecolor="white")
-plt.show()
+# plt.show()
+plt.close(fig)
 
 # %%

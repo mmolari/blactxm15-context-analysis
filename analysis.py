@@ -37,7 +37,8 @@ fig, ax = plt.subplots(1, 1, figsize=(10, 10))
 dendrogram(Z, labels=D.index, ax=ax)
 str_order = [s.get_text() for s in ax.get_xticklabels()]
 str_order_inv = str_order[::-1]
-plt.show()
+# plt.show()
+plt.close(fig)
 
 # plot mash distance matrix
 fig, ax = plt.subplots(1, 1, figsize=(10, 9))

@@ -1,4 +1,7 @@
 
+# input data file
+fastafile="data/bla_5000.fa"
+
 # generate results folder
 mkdir -p results
 
@@ -9,13 +12,13 @@ pangraph build \
     --beta 10 \
     --sensitivity 5 \
     --test \
-    data/bla.fa > results/raw_pangraph.json
+    $fastafile > results/raw_pangraph.json
 
 # polish pangraph and refine alignments
 pangraph polish -c results/raw_pangraph.json > results/pangraph.json
 
 # evaluate mash distance
-mash triangle data/bla.fa > results/mash.tsv
+mash triangle $fastafile > results/mash.tsv
 python3 scripts/mash_triangle_to_csv.py \
     --mash_tri results/mash.tsv \
     --csv results/mash.csv

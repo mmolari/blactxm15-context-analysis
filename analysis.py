@@ -54,27 +54,45 @@ plt.close(fig)
 # %%
 
 
-# draw pangraph
-cmap = iter(plt.get_cmap("Pastel1")(np.arange(len(bdf))))
+# pick colormap for blocks
+N_nonsingleton_blocks = (bdf["count"] > 1).sum()
+if N_nonsingleton_blocks <= 8:
+    cmap = iter(plt.get_cmap("Pastel1")(np.arange(N_nonsingleton_blocks)))
+elif N_nonsingleton_blocks <= 20:
+    cmap = iter(plt.get_cmap("tab20")(np.arange(N_nonsingleton_blocks)))
+else:
+    cmap = plt.get_cmap("rainbow")(np.linspace(0, 1, N_nonsingleton_blocks))
+    np.random.shuffle(cmap)
+    cmap = iter(cmap)
 block_color = defaultdict(lambda: next(cmap))
+
 singleton_blocks = bdf.index[bdf["count"] == 1].to_list()
 for block in singleton_blocks:
-    block_color[block] = "lightgray"
+    block_color[block] = "white"
+
+# align on the right -> evaluate maximum path length
+L_max = 0
+for path in pan.paths:
+    Bs = path.block_ids
+    Ls = [block_length[b] for b in Bs]
+    L_max = max(L_max, sum(Ls))
 
 
 def plot_path(ax, y, Bs, Ss, B_len):
-    x = 0
-    for bid, s in zip(Bs, Ss):
+    x = L_max
+    for bid, s in zip(Bs[::-1], Ss[::-1]):
+        l = B_len[bid]
+        x -= l
         ax.barh(
             y,
-            B_len[bid],
+            l,
             left=x,
             color=block_color[bid],
             edgecolor="black",
         )
         color = "black" if s else "red"
         ax.text(
-            x + B_len[bid] / 2,
+            x + l / 2,
             y,
             bid[:4],
             ha="center",
@@ -82,7 +100,6 @@ def plot_path(ax, y, Bs, Ss, B_len):
             fontsize=8,
             color=color,
         )
-        x += B_len[bid]
 
 
 fig, ax = plt.subplots(1, 1, figsize=(10, 10))

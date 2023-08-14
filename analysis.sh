@@ -1,6 +1,6 @@
 
 # input data file
-fastafile="data/bla_5000.fa"
+fastafile="data/bla_1000.fa"
 
 # generate results folder
 mkdir -p results

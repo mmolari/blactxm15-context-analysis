@@ -34,7 +34,7 @@ We use [MASH](https://github.com/marbl/Mash) to evaluate an alignment-free dista
 
 ![mash distance](./figs/mash_dist_mat.png)
 
-The script `analysis.py` also generates a linear representation for the pangenome graph. Blocks are represented in different colors, with blocks occurring only once being represented in gray. The first four letters of the block name are reported for every block. The final block `ABVFBXCQSS` is present in all isolates. Moving left from it we find first a split in the three main clades.
+The script `analysis.py` also generates a linear representation for the pangenome graph. Blocks are represented in different colors, with blocks occurring only once being represented in white. The first four letters of the block name are reported for every block, with red names corresponding to blocks that are reverse-complemented. The final block `ABVFBXCQSS` is present in all isolates. Moving left from it we find first a split in the three main clades.
 
 ![pangenome graph](./figs/pangraph.png)
 

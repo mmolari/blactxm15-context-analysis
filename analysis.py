@@ -30,7 +30,7 @@ D = D.pivot(index="si", columns="sj", values="mash_dist")
 
 # perform hierarchical clustering
 D_sq = squareform(D)
-Z = linkage(D_sq, method="ward")
+Z = linkage(D_sq, method="complete")
 
 # plot dendrogram
 fig, ax = plt.subplots(1, 1, figsize=(10, 10))
